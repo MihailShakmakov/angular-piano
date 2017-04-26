@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
-import {SearchService} from '../services/search.service';
+import {SearchService} from './search.service';
+import {Router} from '@angular/router';
 
 @Component({
     styles: [`
@@ -52,7 +53,7 @@ import {SearchService} from '../services/search.service';
         <div class="container">
             <div class="search-bar">
                 <input [formControl]="searchField" placeholder="Search..." class="search-bar__field" type="text"/> 
-                <button class="search-bar__button" (click)="submitSearch()">Go</button>
+                <button class="search-bar__button" (click)="submitSearch()" [(disabled)]="isLoading">Go</button>
                 <div class="search-bar__error" *ngIf="error.length" [(innerHtml)]="error" >
                     
                 </div>
@@ -60,28 +61,45 @@ import {SearchService} from '../services/search.service';
         </div>
     `
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
     public searchField: FormControl = new FormControl(null, Validators.required);
     public error:string = '';
+    private query:string = '';
+    public isLoading:boolean = false;
 
-    constructor(private SearchService_:SearchService) {
+    constructor(private SearchService_:SearchService, private Router_:Router) {
 
     }
 
     ngOnInit(): void {
         this.searchField.valueChanges
-            .debounceTime(200)
             .distinctUntilChanged()
             .map((query:string) => query.trim())
-            .subscribe((query:string) => {
-                // console.log(query);
-                console.log(this.SearchService_.search(query));
+            .subscribe((query) => {
+                this.query = query;
             })
     }
 
     public submitSearch(): void {
         if(this.searchField.valid) {
-            this.error = ''
+            this.error = '';
+            this.isLoading = true;
+            this.SearchService_.search(this.query)
+                .subscribe(result => {
+                    console.log(result);
+                    if(!result.length) {
+                        this.error = 'ничего не найдено!';
+                    } else {
+                        this.error = '';
+                        this.Router_.navigate(['results'], { queryParams: { query: this.query }});
+                    }
+                },
+                error => {
+                    console.error(error)
+                },
+                () => {
+                    this.isLoading = false;
+                });
         }
         else {
             this.error = 'введи что-нибудь!';
