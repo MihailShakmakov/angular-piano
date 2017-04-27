@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 
 @Component({
-    template: '<h1>quick view</h1>'
+    template: '<p>quick view</p>'
 })
 export class QuickViewComponent {
     construcror() {

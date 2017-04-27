@@ -31,12 +31,14 @@ import {ActivatedRoute, Router} from "@angular/router";
         }
         
         .result-columns__table {
+            overflow: auto;
             width: 55%;
         }
         
         .result-columns__quick-view {
             width: 45%;
             min-height: 500px;
+            overflow: auto;
             border-left: 10px solid #aaa;
         }
         
@@ -68,7 +70,7 @@ import {ActivatedRoute, Router} from "@angular/router";
                 </thead>
                 <tbody>
                     <tr *ngFor="let result of resultItems" class="table-row">
-                        <td class="table-row__cell">{{result.owner.display_name}}</td>
+                        <td class="table-row__cell"><a [routerLink]="[result.owner.user_id]" preserveQueryParams="true" >{{result.owner.display_name}}</a></td>
                         <td class="table-row__cell">{{result.title + '(' + result.answer_count + ')'}}</td>
                         <td class="table-row__cell">
                             <span *ngFor="let tag of result.tags; let i = index">
