@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, URLSearchParams} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
+import 'rxjs/add/observable/throw';
 import {SearchConverter} from "./search.converter";
 
 @Injectable()
@@ -23,16 +24,21 @@ export class SearchService {
 
     public search(query:string):Observable<string> {
         let params:URLSearchParams = this.defaultParams.clone();
-        params.set('intitle', query);
+        if(query && query.length) {
+            params.set('intitle', query);
 
-        return this.http_
-            .get(this.baseUrl, {search: params})
-            .map(resp => resp.json())
-            .map(jsonResp => {
-                let items = jsonResp.items;
-                this.resultItems = items && items.length ? items.map((item:any) => this.SearchConverter_.convertItem(item)): [];
-                return this.resultItems;
-            });
+            return this.http_
+                .get(this.baseUrl, {search: params})
+                .map(resp => resp.json())
+                .map(jsonResp => {
+                    let items = jsonResp.items;
+                    this.resultItems = items && items.length ? items.map((item:any) => this.SearchConverter_.convertItem(item)): [];
+                    return this.resultItems;
+                });
+        }
+        else {
+            return Observable.throw('empty query');
+        }
     }
     
     public getResultItems() {

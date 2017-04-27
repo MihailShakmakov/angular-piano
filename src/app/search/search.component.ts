@@ -5,9 +5,6 @@ import {Router} from '@angular/router';
 
 @Component({
     styles: [`
-        * {
-         box-sizing: border-box;
-        }
        .container {
         display: flex;
         position: absolute;
