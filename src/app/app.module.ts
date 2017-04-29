@@ -7,6 +7,7 @@ import { ResultsComponent } from './results/results.component';
 import { Page404Component } from './page404.component';
 import { QuestionsComponent } from './questions/questions.component'
 import { TableComponent } from "./components/table.component";
+import { TagsComponent } from "./tags/tags.compoenent";
 import { StackOverFlowService } from './services/stackoverflow.service';
 import { StackOverflowConverter } from './services/stackoverflow.converter';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
@@ -24,7 +25,8 @@ const appRoutes:Routes = [
         path: 'results',
         component: ResultsComponent,
         children: [
-            {path: ':authorId', component: QuestionsComponent}
+            {path: 'author/:authorId', component: QuestionsComponent},
+            {path: 'tag/:tag', component: TagsComponent}
         ]
     },
     {
@@ -42,6 +44,7 @@ const appRoutes:Routes = [
     ],
     declarations: [
         TableComponent,
+        TagsComponent,
         SearchComponent,
         ResultsComponent,
         QuestionsComponent,

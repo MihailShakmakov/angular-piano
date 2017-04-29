@@ -9,7 +9,8 @@ export class StackOverFlowService {
     private baseUrl:string = 'http://api.stackexchange.com/2.2/';
     private paths = {
         'search': 'search',
-        'usersQuestions': 'users/<id>/questions'
+        'usersQuestions': 'users/<id>/questions',
+        'searchAdvanced': 'search/advanced'
     };
     private defaultParams:URLSearchParams = new URLSearchParams();
     private queryOptions:any = {
@@ -20,6 +21,7 @@ export class StackOverFlowService {
     };
     private searchItems:any = [];
     private questionItems:any = [];
+    private tagItems:any = [];
 
     constructor(private http_:Http, private StackOverflowConverter_:StackOverflowConverter) {
         for(let option in this.queryOptions) {
@@ -62,11 +64,28 @@ export class StackOverFlowService {
             });
     }
 
+    public tags(tag:string):Observable<string> {
+        let params:URLSearchParams = this.defaultParams.clone();
+        params.set('tagged', tag);
+        return this.http_
+            .get(this.baseUrl+this.paths.searchAdvanced, {search: params})
+            .map(resp => resp.json())
+            .map(jsonResp => {
+                let items = jsonResp.items;
+                this.tagItems = items && items.length ? items.map((item:any) => this.StackOverflowConverter_.convertItem(item)): [];
+                return this.tagItems;
+            });
+    }
+
     public getResultItems() {
         return this.searchItems;
     }
 
     public getQuestionItems() {
         return this.questionItems;
+    }
+
+    public getTagItems() {
+        return this.tagItems;
     }
 }
