@@ -37,7 +37,6 @@ export class QuestionsComponent implements OnInit, OnDestroy {
                 .flatMap((params:any) => this.StackOverFlowService_.questions(params.authorId))
                 .subscribe(
                     (result:any) => {
-                        debugger;
                         if(result.length) {
                             this.author_name = result[0].owner.display_name;
                             this.resultItems = result;
