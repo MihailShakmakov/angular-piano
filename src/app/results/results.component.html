@@ -1,0 +1,10 @@
+<div class="result-columns">
+    <div class="result-columns__table">
+        <h2 align="center">Search results</h2>
+        <resultsTable [columns]="params" [items]="resultItems"></resultsTable>
+    </div>
+    <div class="result-columns__quick-view">
+        <h2 align="center">Quick view</h2>
+        <router-outlet></router-outlet>
+    </div>
+</div>

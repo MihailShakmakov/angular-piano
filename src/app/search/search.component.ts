@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, Validators} from "@angular/forms";
-import {SearchService} from './search.service';
+import {StackOverFlowService} from '../services/stackoverflow.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -64,7 +64,7 @@ export class SearchComponent implements OnInit {
     private query:string = '';
     public isLoading:boolean = false;
 
-    constructor(private SearchService_:SearchService, private Router_:Router) {
+    constructor(private StackOverFlowService_:StackOverFlowService, private Router_:Router) {
 
     }
 
@@ -81,7 +81,7 @@ export class SearchComponent implements OnInit {
         if(this.searchField.valid) {
             this.error = '';
             this.isLoading = true;
-            this.SearchService_.search(this.query)
+            this.StackOverFlowService_.search(this.query)
                 .subscribe(result => {
                     console.log(result);
                     if(!result.length) {

@@ -5,24 +5,24 @@ import {ActivatedRoute, Router} from "@angular/router";
 import IColumns = entities.table.IColumns;
 
 @Component({
-    styleUrls: ['./results.component.css'],
-    templateUrl: './results.component.html'
+    templateUrl: './questions.component.html'
 })
-export class ResultsComponent implements OnInit, OnDestroy {
+export class QuestionsComponent implements OnInit, OnDestroy {
     private resultItems:any = [];
     private sub: Subscription;
+    public author_name: string = '';
     public params:IColumns = {
         author: {
-            show: true,
-            clickable: true
+            show: false,
+            clickable: false
         },
         theme: {
             show: true,
-            clickable: true
+            clickable: false
         },
         tags: {
             show: true,
-            clickable: true
+            clickable: false
         }
     };
 
@@ -30,25 +30,25 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.resultItems = this.StackOverFlowService_.getResultItems();
+        this.resultItems = this.StackOverFlowService_.getQuestionItems();
         if (this.resultItems.length === 0) {
             this.sub = this.route
-                .queryParams
-                .flatMap((params:any) => this.StackOverFlowService_.search(params.query))
+                .params
+                .flatMap((params:any) => this.StackOverFlowService_.questions(params.authorId))
                 .subscribe(
                     (result:any) => {
                         if(result.length) {
+                            this.author_name = result[0].owner.display_name;
                             this.resultItems = result;
                         } else {
-                            this.router.navigate(['']);
+                            
                         }
                     },
                     (error:any) => {
                         console.error(error);
-                        this.router.navigate(['']);
                     }
                 );
-            }
+        }
     }
 
     ngOnDestroy() {

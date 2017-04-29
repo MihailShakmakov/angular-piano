@@ -5,9 +5,10 @@ import { RouterModule, Routes} from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { ResultsComponent } from './results/results.component';
 import { Page404Component } from './page404.component';
-import { QuickViewComponent } from './quickView/quick-view-detail.component';
-import { SearchService } from './search/search.service';
-import { SearchConverter } from './search/search.converter';
+import { QuestionsComponent } from './questions/questions.component'
+import { TableComponent } from "./components/table.component";
+import { StackOverFlowService } from './services/stackoverflow.service';
+import { StackOverflowConverter } from './services/stackoverflow.converter';
 import { LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { ReactiveFormsModule } from "@angular/forms";
 
@@ -23,7 +24,7 @@ const appRoutes:Routes = [
         path: 'results',
         component: ResultsComponent,
         children: [
-            {path: ':authorId', component: QuickViewComponent}
+            {path: ':authorId', component: QuestionsComponent}
         ]
     },
     {
@@ -40,16 +41,17 @@ const appRoutes:Routes = [
         HttpModule
     ],
     declarations: [
+        TableComponent,
         SearchComponent,
         ResultsComponent,
-        QuickViewComponent,
+        QuestionsComponent,
         Page404Component,
         AppComponent
     ],
     providers: [
         {provide: LocationStrategy, useClass: HashLocationStrategy},
-        SearchConverter,
-        SearchService
+        StackOverflowConverter,
+        StackOverFlowService
     ],
     bootstrap: [ AppComponent ]
 })

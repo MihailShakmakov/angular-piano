@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import * as _ from "lodash";
 
 @Injectable()
-export class SearchConverter {
+export class StackOverflowConverter {
     
     public convertItem(item:any):any {
         return {

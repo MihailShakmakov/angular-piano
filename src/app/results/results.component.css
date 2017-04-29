@@ -1,0 +1,30 @@
+.result-columns {
+    display: flex;
+}
+
+.result-columns__table {
+    overflow: auto;
+    width: 55%;
+}
+
+.result-columns__quick-view {
+    width: 45%;
+    min-height: 500px;
+    overflow: auto;
+    border-left: 10px solid #aaa;
+}
+
+@media(max-width: 768px) {
+    .result-columns {
+        flex-direction: column;
+    }
+    .result-columns__table {
+        width: 100%;
+    }
+    .result-columns__quick-view {
+        width: 100%;
+        min-height: 500px;
+        border-left: 0;
+        border-top: 10px solid #aaa;
+    }
+}
