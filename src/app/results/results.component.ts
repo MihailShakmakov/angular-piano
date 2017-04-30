@@ -23,6 +23,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
         tags: {
             show: true,
             clickable: true
+        },
+        answers: {
+            show: false,
+            clickable: false
         }
     };
 
@@ -34,7 +38,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         if (this.resultItems.length === 0) {
             this.sub = this.route
                 .queryParams
-                .flatMap((params:any) => this.StackOverFlowService_.search(params.query))
+                .flatMap((params:any) => this.StackOverFlowService_.getQuestionsByKeyWord(params.query))
                 .subscribe(
                     (result:any) => {
                         if(result.length) {

@@ -81,7 +81,7 @@ export class SearchComponent implements OnInit {
         if(this.searchField.valid) {
             this.error = '';
             this.isLoading = true;
-            this.StackOverFlowService_.search(this.query)
+            this.StackOverFlowService_.getQuestionsByKeyWord(this.query)
                 .subscribe(result => {
                     console.log(result);
                     if(!result.length) {
@@ -92,7 +92,8 @@ export class SearchComponent implements OnInit {
                     }
                 },
                 error => {
-                    console.error(error)
+                    console.error(error);
+                    this.isLoading = false;
                 },
                 () => {
                     this.isLoading = false;

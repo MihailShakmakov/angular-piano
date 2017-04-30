@@ -18,3 +18,6 @@
     vertical-align: middle;
     padding: 0.5em 1em;
 }
+.table-row__cell--left-align {
+    text-align: left;
+}

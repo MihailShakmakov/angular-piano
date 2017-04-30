@@ -6,6 +6,7 @@ import { SearchComponent } from './search/search.component';
 import { ResultsComponent } from './results/results.component';
 import { Page404Component } from './page404.component';
 import { QuestionsComponent } from './questions/questions.component'
+import { QuestionDetailsComponent } from "./questionDetails/question-details.component";
 import { TableComponent } from "./components/table.component";
 import { TagsComponent } from "./tags/tags.compoenent";
 import { StackOverFlowService } from './services/stackoverflow.service';
@@ -30,6 +31,10 @@ const appRoutes:Routes = [
         ]
     },
     {
+        path: 'answers/:questionId',
+        component: QuestionDetailsComponent
+    },
+    {
         path: '**',
         component: Page404Component
     }
@@ -45,6 +50,7 @@ const appRoutes:Routes = [
     declarations: [
         TableComponent,
         TagsComponent,
+        QuestionDetailsComponent,
         SearchComponent,
         ResultsComponent,
         QuestionsComponent,

@@ -23,6 +23,10 @@ export class TagsComponent implements OnInit, OnDestroy {
         tags: {
             show: false,
             clickable: false
+        },
+        answers: {
+            show: false,
+            clickable: false
         }
     };
 
@@ -36,7 +40,7 @@ export class TagsComponent implements OnInit, OnDestroy {
                 .params
                 .flatMap((params:any) => {
                     this.tag = params.tag;
-                    return this.StackOverFlowService_.tags(params.tag);
+                    return this.StackOverFlowService_.getQuestionsByTag(params.tag);
                 })
                 .subscribe(
                     (result:any) => {

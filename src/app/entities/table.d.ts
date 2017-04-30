@@ -7,6 +7,7 @@ declare namespace entities.table {
     export interface IColumns {
         author: IColumnField,
         theme: IColumnField,
-        tags: IColumnField
+        tags: IColumnField,
+        answers: IColumnField
     }
 }

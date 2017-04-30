@@ -23,6 +23,10 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         tags: {
             show: true,
             clickable: false
+        },
+        answers: {
+            show: false,
+            clickable: false
         }
     };
 
@@ -34,7 +38,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         if (this.resultItems.length === 0) {
             this.sub = this.route
                 .params
-                .flatMap((params:any) => this.StackOverFlowService_.questions(params.authorId))
+                .flatMap((params:any) => this.StackOverFlowService_.getQuestionsByUser(params.authorId))
                 .subscribe(
                     (result:any) => {
                         if(result.length) {
