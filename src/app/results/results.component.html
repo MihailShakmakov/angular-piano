@@ -1,9 +1,9 @@
 <div class="result-columns">
-    <div class="result-columns__table">
+    <div class="result-columns__table" [ngClass]="{'result-columns__table--full-width': true}">
         <h2 align="center">Search results</h2>
         <resultsTable [columns]="params" [items]="resultItems"></resultsTable>
     </div>
-    <div class="result-columns__quick-view">
+    <div class="result-columns__quick-view" [hidden]="!isQuickView">
         <h2 align="center">Quick view</h2>
         <router-outlet></router-outlet>
     </div>

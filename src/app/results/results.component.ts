@@ -11,6 +11,8 @@ import IColumns = entities.table.IColumns;
 export class ResultsComponent implements OnInit, OnDestroy {
     private resultItems:any = [];
     private sub: Subscription;
+    private routerSub: Subscription;
+    public isQuickView: boolean = false;
     public params:IColumns = {
         author: {
             show: true,
@@ -34,6 +36,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.routerSub = this.router.events
+            .subscribe((event:any)=> {
+               this.isQuickView = event.url.includes('author') || event.url.includes('tag');
+            });
+
         this.resultItems = this.StackOverFlowService_.getResultItems();
         if (this.resultItems.length === 0) {
             this.sub = this.route
@@ -52,12 +59,15 @@ export class ResultsComponent implements OnInit, OnDestroy {
                         this.router.navigate(['']);
                     }
                 );
-            }
+        }
     }
 
     ngOnDestroy() {
         if(this.sub) {
             this.sub.unsubscribe();
+        }
+        if(this.routerSub) {
+            this.routerSub.unsubscribe();
         }
     }
 }

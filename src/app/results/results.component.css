@@ -8,6 +8,10 @@
     width: 55%;
 }
 
+.result-columns__table--full-width {
+    width: 100%;
+}
+
 .result-columns__quick-view {
     height: 100vh;
     width: 45%;

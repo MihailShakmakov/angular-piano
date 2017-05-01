@@ -50,10 +50,10 @@ const appRoutes:Routes = [
     declarations: [
         TableComponent,
         TagsComponent,
+        QuestionsComponent,
         QuestionDetailsComponent,
         SearchComponent,
         ResultsComponent,
-        QuestionsComponent,
         Page404Component,
         AppComponent
     ],
